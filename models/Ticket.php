@@ -114,7 +114,7 @@ class Ticket extends Model
                         $uamtkClientJson = json_decode($body, true);
                         writeLog(date('Y-m-d H:i:s').'--uamauthclient-- 响应数据：'.var_export($uamtkClientJson,true),'user');
                         if ($uamtkClientJson['result_code'] == 0) {
-                            return true;
+                            return false;
                         }
                     }
                     goto Check;
@@ -277,7 +277,7 @@ class Ticket extends Model
                 if($val['ok'] === 'YES' && $val['cc'] == $tripsCode && ($val[$seatType['site_key']] === '有' || (integer)$val[$seatType['site_key']]) > 0){
                     $res = static::submitOrderRequest($ticketInfo,$passengerInfo,$val['secretStr'],$seatType);
                     writeLog(date('Y-m-d H:i:s').'购票状态：'.$res,'order');
-                    if($res){
+                    if(is_bool($res)){
                         exit;
                     }
                 }
@@ -488,7 +488,7 @@ class Ticket extends Model
                     if ($queueCount['data']['op_2'] == "true") {
                         $info .= '目前排队人数已经超过余票张数，请您选择其他席别或车次。';
                         static::sdtout($info);
-                        return true;
+                        return false;
                     } else {
                         if (intval($queueCount['data']['countT']) > 0) {
                             $info .= "目前排队人数{$queueCount['data']['countT']}人，";
@@ -542,11 +542,8 @@ class Ticket extends Model
                     '_json_att' => '',
                     'REPEAT_SUBMIT_TOKEN' => $repeatSubmitToken
                 ];
-                writeLog(date('Y-m-d H:i:s').'--query_order-- 请求URL数据：'.var_export($queryOrderData,true),'order');
-                writeLog(date('Y-m-d H:i:s').'--query_order-- 请求Cookie数据：'.var_export($cookieArray,true),'order');
+                writeLog(date('Y-m-d H:i:s').'--query_order-- 请求数据：'.var_export($queryOrderData,true),'order');
                 curlRequest($queryOrderUrl, true,$queryOrderData, false, $cookieArray, $body, $head);
-                writeLog(date('Y-m-d H:i:s').'--query_order-- 响应数据：'.$body,'order');
-                writeLog(date('Y-m-d H:i:s').'--query_order-- 响应Head数据：'.$head,'order');
                 if ($body == '') {
                     Ticket::sdtout('获取订单号失败,准备重试！');
                     goto queryOrder;
@@ -586,11 +583,11 @@ class Ticket extends Model
                 }
             } else {
                 static::sdtout($checkOrderInfoDataJson['data']['errMsg']);
-                return true;
+                return false;
             }
         }else{
             static::sdtout(strip_tags($submitOrderJson['messages'][0]));
-            return true;
+            return false;
         }
     }
 
