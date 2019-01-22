@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+<style>
+    .loginImg {
+        width: 300px;
+        height: 188px;
+    }
+</style>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    var popup_defaultPasscodeHeight = 30;
+    function popup_locationLeft(element) {
+        offsetTotal = element.offsetLeft;
+        scrollTotal = 0;
+        if (element.tagName != 'BODY') {
+            if (element.offsetParent != null) {
+                return offsetTotal+scrollTotal + popup_locationLeft(element.offsetParent);
+            }
+        }
+        return offsetTotal + scrollTotal;
+    }
+    function popup_locationTop(element) {
+        offsetTotal = element.offsetTop;
+        scrollTotal = 0;
+        if (element.tagName != 'BODY') {
+            if (element.offsetParent != null) {
+                return offsetTotal + scrollTotal + popup_locationTop(element.offsetParent);
+            }
+        }
+        return offsetTotal + scrollTotal;
+    }
+    function popup_getClickPos(e)
+    {
+        var xPage = (navigator.appName == 'Netscape') ? e.pageX : e.clientX + (document.documentElement.scrollLeft || window.pageXOffset || document.body.scrollLeft);
+        var yPage = (navigator.appName == 'Netscape') ? e.pageY : e.clientY + (document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop);
+        identifyImage = document.getElementById('J-loginImg');
+        img_x = popup_locationLeft(identifyImage);
+        img_y = popup_locationTop(identifyImage);
+
+        var xPos = xPage-img_x;
+        var yPos = yPage-img_y - popup_defaultPasscodeHeight;
+        if(xPos > 0 && yPos > 0) {
+            // var str = xPos+','+yPos;
+            // $('#J-passCodeCoin').append(','+str.substr(0,str.length - 1));
+            var html = '<div randCode="' +xPos + ',' + yPos + '" class="lgcode-active" style="top: ' + (yPos + 16) + 'px; left: ' + (xPos - 13) + 'px;"></div>';
+            $('#J-passCodeCoin').append(html);
+        }
+    }
+
+    $(function () {
+        // 选中验证码
+        $('#J-loginImgArea').unbind('click').click(function(event) {
+            popup_getClickPos(event)
+        })
+    })
+</script>
+</head>
+<body>
+<div id="J-loginImgArea" class="loginImg">
+    <img id="J-loginImg" class="imgCode" alt="" src="code.jpeg" style="display: inline;">
+</div>
+<div id="J-passCodeCoin"></div>
+</body>
+</html>
