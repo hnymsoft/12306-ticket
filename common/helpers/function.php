@@ -334,5 +334,14 @@ if(!function_exists('sdt_output')) {
     }
 }
 
+//弹窗提示
+if(!function_exists('alert')) {
+    function alert($order = ''){
+        $subject = iconv('utf-8','gb2312','温馨提示');
+        $body = "恭喜您订票成功，订单号为：{$order}, 请立即打开浏览器登录12306，访问‘未完成订单’，在30分钟内完成支付！";
+        $body = iconv('utf-8','gb2312',$body);
+        exec('mshta vbscript:msgbox("'.$body.'",64,"'.$subject.'")(window.close)');
+    }
+}
 
 

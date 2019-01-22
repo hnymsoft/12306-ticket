@@ -18,13 +18,13 @@ return [
     ],
     'TicketInfo' => [
         'seat_index' => '9', //席别索引号（1 硬座 2 软座 3 硬卧 4 软卧 5 高级软卧 6 商务座 7 动卧 8 一等座 9 二等座） 例：8
-        'trips_num' => '', //购买车次 例：G1
-        'passenger' => '',  //购票人（多人以逗号分隔开） 例：孙**,刘**
+        'trips_num' => '***', //购买车次 例：G1
+        'passenger' => '***',  //购票人（多人以逗号分隔开） 例：孙**,刘**
     ],
     'TicketQuery' => [
-        'from_station' => '', //例：北京南
-        'to_station' => '', //例：上海虹桥
-        'train_date' => '', //例：2019-02-14
+        'from_station' => '***',
+        'to_station' => '***',
+        'train_date' => '***',
         'back_train_date' => ''
     ],
     'TicketNotify' => [
@@ -35,6 +35,9 @@ return [
         ],
         'Sms' => [
             'is_open' => 'NO',
+        ],
+        'Alert' => [ //此方法只在window下有效
+            'is_open' => 'YES',
         ]
     ],
     'TicketUrl' => [

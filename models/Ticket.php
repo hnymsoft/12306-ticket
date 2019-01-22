@@ -559,9 +559,10 @@ class Ticket extends Model
                         sdt_output($subject);
                         sdt_output($body);
                         $ticketNotify = \Yii::$app->params['TicketNotify'];
-                        //发送邮件
                         if(isset($ticketNotify['Email']['is_open']) && $ticketNotify['Email']['is_open'] == 'YES'){
-                            sendMail($subject,$body);
+                            sendMail($subject,$body); //发送邮件
+                        }elseif(isset($ticketNotify['Alert']['is_open']) && $ticketNotify['Alert']['is_open'] == 'YES'){
+                            alert($result['orderId']); //弹窗提醒
                         }elseif(isset($ticketNotify['Sms']['is_open']) && $ticketNotify['Sms']['is_open'] == 'YES'){
                             //暂无
                         }
