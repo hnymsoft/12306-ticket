@@ -42,7 +42,7 @@ class TicketController extends Controller
             date_default_timezone_set('PRC');
             $hour = date('H');
             if($hour <= $this->_ticketBase['isTicket'][0] || $hour >= $this->_ticketBase['isTicket'][1]){
-                Ticket::sdtout('12306系统维护中【维护时间:23:00-07:00】');
+                sdt_output('12306系统维护中【维护时间:23:00-07:00】');
                 exit;
             }
             $from_name = $this->_ticketQuery['from_station'];
@@ -61,36 +61,36 @@ class TicketController extends Controller
                 $trips_num = $this->_ticketInfo['trips_num'];
                 $passenger = $this->_ticketInfo['passenger'];
                 $seat_type = $this->_seatType[$this->_ticketInfo['seat_index']]['name'];
-                Ticket::sdtout("********************* 初始化 *********************");
-                Ticket::sdtout("购票类型：{$is_auto}");
-                Ticket::sdtout("短信提醒：{$this->_ticketNotify['Sms']['is_open']}");
-                Ticket::sdtout("邮件提醒：{$this->_ticketNotify['Email']['is_open']}");
-                Ticket::sdtout("********************* 当前配置 *********************");
-                Ticket::sdtout("购票时间：{$ticket['train_date']}");
-                Ticket::sdtout("出发站：{$ticket['from_station']} 到达站：{$ticket['to_station']}");
-                Ticket::sdtout("筛选车次：{$trips_num}");
-                Ticket::sdtout("乘车人：{$passenger}");
-                Ticket::sdtout("坐席：{$seat_type}");
-                Ticket::sdtout("********************* 开始执行 *********************");
+                sdt_output("********************* 初始化 *********************");
+                sdt_output("购票类型：{$is_auto}");
+                sdt_output("短信提醒：{$this->_ticketNotify['Sms']['is_open']}");
+                sdt_output("邮件提醒：{$this->_ticketNotify['Email']['is_open']}");
+                sdt_output("********************* 当前配置 *********************");
+                sdt_output("购票时间：{$ticket['train_date']}");
+                sdt_output("出发站：{$ticket['from_station']} 到达站：{$ticket['to_station']}");
+                sdt_output("筛选车次：{$trips_num}");
+                sdt_output("乘车人：{$passenger}");
+                sdt_output("坐席：{$seat_type}");
+                sdt_output("********************* 开始执行 *********************");
                 if(!isset($this->_ticketInfo['trips_num'])){
-                    Ticket::sdtout('请填写购买的车次!');
+                    sdt_output('请填写购买的车次!');
                 }
                 $tripsCode = $this->_ticketInfo['trips_num'];
             }else{
                 $tripsResult = Ticket::ticketQuery($ticketInfo);
-                Ticket::sdtout('请选择有效车次序号!');
-                $tripsIndex = Console::input();
+                sdt_output('请选择有效车次序号!');
+                $tripsIndex = sdt_input();
                 if (!isset($tripsResult[$tripsIndex - 1])) {
-                    Ticket::sdtout('序号不存在请重试!');
+                    sdt_output('序号不存在请重试!');
                 }
                 //选定车次
                 $tripsCode = $tripsResult[$tripsIndex - 1]['cc'];
-                Ticket::sdtout("您选择的车次是：{$tripsCode}");
+                sdt_output("您选择的车次是：{$tripsCode}");
             }
             $seatType = Ticket::getSeatType();
             $passenger = Ticket::getPassenger($seatType);
             Ticket::brushTicket($ticketInfo,$passenger,$tripsCode,$seatType);
-            Ticket::sdtout("********************* 结束执行 *********************");
+            sdt_output("********************* 结束执行 *********************");
         }
     }
 }

@@ -318,4 +318,21 @@ if(!function_exists('millisecond')){
     }
 }
 
+//标准输入
+if(!function_exists('sdt_input')) {
+    function sdt_input($msg = '')
+    {
+        return \yii\helpers\Console::input($msg);
+    }
+}
+
+//标准输出
+if(!function_exists('sdt_output')) {
+    function sdt_output($msg = '')
+    {
+        return \yii\helpers\Console::output($msg);
+    }
+}
+
+
 

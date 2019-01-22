@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43d8b3e3-c7c3-4eae-9338-bd95690a7cb6" name="Default" comment="vendor更新">
-      <change afterPath="$PROJECT_DIR$/runtime/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/TicketController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/helpers/function.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/helpers/function.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/console.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/console.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/ticket_cfg.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/ticket_cfg.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/Ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Ticket.php" afterDir="false" />
@@ -25,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/config/console.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1470">
-              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
@@ -33,17 +33,8 @@
       <file leaf-file-name="TicketController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commands/TicketController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="711">
-              <caret line="91" column="28" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ticket_cfg.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/ticket_cfg.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2250">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="178">
+              <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -51,8 +42,8 @@
       <file leaf-file-name="Ticket.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/Ticket.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="634" column="15" selection-start-line="634" selection-start-column="8" selection-end-line="634" selection-end-column="15" />
+            <state relative-caret-position="318">
+              <caret line="115" column="57" selection-start-line="115" selection-start-column="46" selection-end-line="115" selection-end-column="57" />
               <folding>
                 <element signature="e#30#49#0#PHP" expanded="true" />
               </folding>
@@ -60,23 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="function.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/helpers/function.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="291">
-                <caret line="46" column="25" lean-forward="true" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
-              </first_editor>
-              <second_editor />
+            <state relative-caret-position="207">
+              <caret line="322" column="22" selection-start-line="322" selection-start-column="13" selection-end-line="322" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -85,9 +64,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>orderId</find>
-      <find>get_order_wait_time</find>
-      <find>getSubImgs</find>
       <find>recognizeWord</find>
       <find>$this-&gt;isAi</find>
       <find>$this-&gt;captchaWordPath</find>
@@ -115,7 +91,14 @@
       <find>TicketSendMail</find>
       <find>排队失败</find>
       <find>return</find>
+      <find>Ticket::sdtout</find>
+      <find>static::sdtin</find>
+      <find>Console::input</find>
     </findStrings>
+    <replaceStrings>
+      <replace>sdt_output</replace>
+      <replace>sdt_input</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>F:\wamp64\www\12306_ticket</dir>
     </dirStrings>
@@ -132,14 +115,14 @@
         <option value="$PROJECT_DIR$/models/BaiduImg.php" />
         <option value="$PROJECT_DIR$/config/params.php" />
         <option value="$PROJECT_DIR$/models/Captcha.php" />
-        <option value="$PROJECT_DIR$/common/helpers/function.php" />
-        <option value="$PROJECT_DIR$/commands/TicketController.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/config/console.php" />
         <option value="$USER_HOME$/AppData/Local/Temp/360zip$Temp/360$1/console.php" />
         <option value="$PROJECT_DIR$/config/ticket_cfg.php" />
         <option value="$USER_HOME$/AppData/Local/Temp/360zip$Temp/360$2/ticket_cfg.php" />
+        <option value="$PROJECT_DIR$/common/helpers/function.php" />
+        <option value="$PROJECT_DIR$/commands/TicketController.php" />
         <option value="$PROJECT_DIR$/models/Ticket.php" />
       </list>
     </option>
@@ -193,7 +176,17 @@
             <path>
               <item name="12306-ticket" type="b2602c69:ProjectViewProjectNode" />
               <item name="12306-ticket" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="common" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="12306-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="12306-ticket" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="12306-ticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="12306-ticket" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="runtime" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -273,7 +266,7 @@
       <workItem from="1548126743703" duration="176000" />
       <workItem from="1548126929345" duration="420000" />
       <workItem from="1548127358916" duration="807000" />
-      <workItem from="1548128286527" duration="2854000" />
+      <workItem from="1548128286527" duration="3664000" />
     </task>
     <task id="LOCAL-00001" summary="获取乘客列表，席别信息等">
       <created>1547621893869</created>
@@ -359,11 +352,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548128430803</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="购票异常处理">
+      <created>1548134183539</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1548134183539</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117964000" />
+    <option name="totallyTimeSpent" value="118774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -378,7 +378,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.57251906" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4989339" weight="0.33151582" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.4989339" visible="true" weight="0.33151582" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -446,7 +446,8 @@
     <MESSAGE value="购票成功发送邮件文案修改" />
     <MESSAGE value="初始化" />
     <MESSAGE value="vendor更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="vendor更新" />
+    <MESSAGE value="购票异常处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="购票异常处理" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/commands/TicketController.php">
@@ -666,13 +667,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/helpers/function.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8910">
-          <caret line="297" column="64" selection-start-line="297" selection-start-column="64" selection-end-line="297" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/params.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -745,13 +739,6 @@
         <state relative-caret-position="-1440" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/console.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/ticket_cfg.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2250">
@@ -759,17 +746,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/console.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/helpers/function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="322" column="22" selection-start-line="322" selection-start-column="13" selection-end-line="322" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/commands/TicketController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="711">
-          <caret line="91" column="28" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+        <state relative-caret-position="178">
+          <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/Ticket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="634" column="15" selection-start-line="634" selection-start-column="8" selection-end-line="634" selection-end-column="15" />
+        <state relative-caret-position="318">
+          <caret line="115" column="57" selection-start-line="115" selection-start-column="46" selection-end-line="115" selection-end-column="57" />
           <folding>
             <element signature="e#30#49#0#PHP" expanded="true" />
           </folding>

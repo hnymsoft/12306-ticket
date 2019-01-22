@@ -37,19 +37,19 @@ class Ticket extends Model
             //清空缓存文件Cookie信息
             \Yii::$app->cache->delete('info');
 
-            Ticket::sdtout('正在获取验证码，请稍后...');
+            sdt_output('正在获取验证码，请稍后...');
             $initUrl = urlp('user','init');
             curlRequest($initUrl, true, [], false, $cookieArray, $body, $head);
             GetYan:
             $yanUrl = urlp('user','captcha_image');
             curlRequest($yanUrl, true, [], false, $cookieArray, $body, $head);
             if ($body == '') {
-                Ticket::sdtout('验证码获取失败,准备重试！');
+                sdt_output('验证码获取失败,准备重试！');
                 goto GetYan;
             }
             file_put_contents(dirname(__DIR__). '/code.jpeg', $body);
             $answer = (new Captcha())->recognitionVerifyCode();
-            Ticket::sdtout('验证码识别中，请稍候。。。');
+            sdt_output('验证码识别中，请稍候。。。');
             writeLog(date('Y-m-d H:i:s').'--captcha-- 获取验证码坐标'.$answer,'user');
             //验证码 验证
             CheckYan:
@@ -69,10 +69,10 @@ class Ticket extends Model
             if ($json['result_code'] != "4") {
                 unset($cookieArray['_passport_session']);
                 unset($cookieArray['_passport_ct']);
-                Ticket::sdtout('验证码检测失败,准备重新获取验证码！');
+                sdt_output('验证码检测失败,准备重新获取验证码！');
                 goto GetYan;
             } else{
-                Ticket::sdtout('开始登录，请稍候。。。');
+                sdt_output('开始登录，请稍候。。。');
                 LoginPost:
                 $body = '';
                 $loginData = [
@@ -90,7 +90,7 @@ class Ticket extends Model
                 writeLog(date('Y-m-d H:i:s').'--login-- 响应数据：'.var_export($json,true),'user');
                 if ($loginJson['result_code'] == 0) {
                     $cookieArray['uamtk'] = $loginJson['uamtk'];
-                    Ticket::sdtout('登录成功！');
+                    sdt_output('登录成功！');
                     uamTk:
                     writeLog(date('Y-m-d H:i:s').'--uamtk-- 请求数据：'.var_export(['appid' => 'otn'],true),'user');
                     $uamtkUrl = urlp('user','uamtk');
@@ -114,17 +114,17 @@ class Ticket extends Model
                         $uamtkClientJson = json_decode($body, true);
                         writeLog(date('Y-m-d H:i:s').'--uamauthclient-- 响应数据：'.var_export($uamtkClientJson,true),'user');
                         if ($uamtkClientJson['result_code'] == 0) {
-                            return false;
+                            return true;
                         }
                     }
                     goto Check;
                 } else {
-                    Ticket::sdtout('用户名或密码错误，请检查！');
+                    sdt_output('用户名或密码错误，请检查！');
                     return false;
                 }
             }
         }else{
-            Ticket::sdtout('已登录！');
+            sdt_output('已登录！');
             return true;
         }
     }
@@ -197,7 +197,7 @@ class Ticket extends Model
                 ];
             }
             if($is_show){
-                Ticket::sdtout('已为你查询到以下车次');
+                sdt_output('已为你查询到以下车次');
                 foreach ($tripsResult AS $key => $val){
                     unset($val['secretStr']);
                 }
@@ -205,11 +205,11 @@ class Ticket extends Model
                     'headers' => $headCol,
                     'rows' => $tripsResult,
                 ]);
-                static::sdtout($ticketTable);
+                sdt_output($ticketTable);
             }
             return $tripsResult;
         }else{
-            static::sdtout('查询失败，准备重新获取。。。');
+            sdt_output('查询失败，准备重新获取。。。');
             goto tripsFind;
         }
     }
@@ -225,7 +225,7 @@ class Ticket extends Model
         $ticketInfo = \Yii::$app->params['TicketInfo'];
         if(\Yii::$app->params['TicketBase']['auto'] === TRUE){
             if(!isset($ticketInfo['seat_index'])){
-                static::sdtout('请填写购买车次的席别！');
+                sdt_output('请填写购买车次的席别！');
             }
             $seatIndex = $ticketInfo['seat_index'];
         }else{
@@ -233,16 +233,16 @@ class Ticket extends Model
                 'headers' => ['序号', '座位类型', '座位字段', '座位索引'],
                 'rows' => $seat_type,
             ]);
-            static::sdtout($seatTable);
-            static::sdtout('请依据车次选择座位席别！');
-            $seatIndex = Console::input();
+            sdt_output($seatTable);
+            sdt_output('请依据车次选择座位席别！');
+            $seatIndex = sdt_input();
         }
         if (array_key_exists($seatIndex, $seat_type)) {
             $data['site_name'] = $seat_type[$seatIndex]['name'];
             $data['site_type'] = $seat_type[$seatIndex]['value'];
             $data['site_key'] = $seat_type[$seatIndex]['key'];
         } else {
-            static::sdtout('席别错误，请重新选择！');
+            sdt_output('席别错误，请重新选择！');
             goto selectSiteIndex;
         }
         return $data;
@@ -260,7 +260,7 @@ class Ticket extends Model
         $i = 0;
         while (true){
             $i++;
-            static::sdtout("正在为您第{$i}次查询，当前时间：".date('Y-m-d H:i:s'));
+            sdt_output("正在为您第{$i}次查询，当前时间：".date('Y-m-d H:i:s'));
             //刷新频次，如未配置默认5秒
             $refresh = \Yii::$app->params['TicketBase']['refresh'];
             $refresh_num = 5;
@@ -328,7 +328,7 @@ class Ticket extends Model
         $ticketInfo = \Yii::$app->params['TicketInfo'];
         if(\Yii::$app->params['TicketBase']['auto'] == TRUE){
             if(!isset($ticketInfo['passenger'])){
-                static::sdtout('请填写购票的乘客，多人请以英文逗号分隔！');
+                sdt_output('请填写购票的乘客，多人请以英文逗号分隔！');
             }
             $passenger = explode(',',$ticketInfo['passenger']);
             foreach ($passengerRes AS $key => $val){
@@ -341,14 +341,14 @@ class Ticket extends Model
                 'headers' => $headCol,
                 'rows' => $passengerRes,
             ]);
-            static::sdtout($ticketTable);
-            static::sdtout('请选择乘车人 如果多人请以英文逗号分隔！');
-            $userList = Console::input();
+            sdt_output($ticketTable);
+            sdt_output('请选择乘车人 如果多人请以英文逗号分隔！');
+            $userList = sdt_input();
             $userArray = explode(',', $userList);
         }
         foreach ($userArray as $value) {
             if (!isset($passengerRes[$value - 1])) {
-                static::sdtout('乘客信息错误 请重新选择！');
+                sdt_output('乘客信息错误 请重新选择！');
                 goto ShowUserList;
             }
             $passengerTicketStr .= $seatType['site_type'] . ",0,{$passengerJson[$value - 1]['passenger_type']},{$passengerJson[$value - 1]['passenger_name']},{$passengerJson[$value - 1]['passenger_id_type_code']},{$passengerJson[$value - 1]['passenger_id_no']},{$passengerJson[$value - 1]['mobile_no']},N_";
@@ -399,7 +399,7 @@ class Ticket extends Model
         $submitOrderJson = json_decode($body, true);
         writeLog(date('Y-m-d H:i:s').'--submit_order_request-- 响应数据：'.var_export($submitOrderJson,true),'order');
         if ($submitOrderJson['httpstatus'] == 200 && $submitOrderJson['status'] == true) {
-            static::sdtout('提交订单成功');
+            sdt_output('提交订单成功');
             globalRepeatSubmitToken:
             $initDc = urlp('order','init_dc');
             curlRequest($initDc, false, ['_json_att' => ''], true, $cookieArray, $body, $head);
@@ -444,7 +444,7 @@ class Ticket extends Model
             $checkOrderInfoDataJson = json_decode($body, true);
             writeLog(date('Y-m-d H:i:s').'--check_order_info-- 响应数据：'.var_export($checkOrderInfoDataJson,true),'order');
             if ($checkOrderInfoDataJson['httpstatus'] == 200 && $checkOrderInfoDataJson['data']['submitStatus'] == true) {
-                static::sdtout('验证订单成功');
+                sdt_output('验证订单成功');
                 queueCount:
                 $time = new \DateTime(date('Y-m-d 00:00:00',strtotime($ticketInfo['train_date'])), new \DateTimeZone("GMT+0800"));
                 $queueData = [
@@ -484,23 +484,23 @@ class Ticket extends Model
                         }
                     }
                     $info .= "。";
-                    static::sdtout($info);
+                    sdt_output($info);
                     if ($queueCount['data']['op_2'] == "true") {
                         $info .= '目前排队人数已经超过余票张数，请您选择其他席别或车次。';
-                        static::sdtout($info);
+                        sdt_output($info);
                         return false;
                     } else {
                         if (intval($queueCount['data']['countT']) > 0) {
                             $info .= "目前排队人数{$queueCount['data']['countT']}人，";
                             $info .= "系统将为您随机分配席位。";
-                            static::sdtout($info);
+                            sdt_output($info);
                         }
                     }
                     if (intval($ticket[0]) > 0 || intval($ticket[1]) > 0 || "充足" == $ticket[0] || "充足" == $ticket[1]) {
-                        static::sdtout('票源充足！');
+                        sdt_output('票源充足！');
                     }
                 } else {
-                    static::sdtout($queueCount['messages'][0]);
+                    sdt_output($queueCount['messages'][0]);
                 }
                 confirm:
                 $confirmData = [
@@ -527,9 +527,9 @@ class Ticket extends Model
                 $confirmSingleForQueueRes = json_decode($body, true);
                 writeLog(date('Y-m-d H:i:s').'--queue-- 响应数据：'.var_export($confirmSingleForQueueRes,true),'order');
                 if ($confirmSingleForQueueRes['httpstatus'] == 200 && $confirmSingleForQueueRes['data']['submitStatus'] == true) {
-                    static::sdtout('请稍候，正在排队获取订单号！');
+                    sdt_output('请稍候，正在排队获取订单号！');
                 } else {
-                    static::sdtout($confirmSingleForQueueRes['data']['errMsg']);
+                    sdt_output($confirmSingleForQueueRes['data']['errMsg']);
                     return false;
                 }
                 $current_queue_wait = 0;
@@ -545,7 +545,7 @@ class Ticket extends Model
                 writeLog(date('Y-m-d H:i:s').'--query_order-- 请求数据：'.var_export($queryOrderData,true),'order');
                 curlRequest($queryOrderUrl, true,$queryOrderData, false, $cookieArray, $body, $head);
                 if ($body == '') {
-                    Ticket::sdtout('获取订单号失败,准备重试！');
+                    sdt_output('获取订单号失败,准备重试！');
                     goto queryOrder;
                 }
                 $queryOrderRes = json_decode($body, true);
@@ -556,8 +556,8 @@ class Ticket extends Model
                     if(isset($result['orderId'])){
                         $subject = "购票成功~";
                         $body = "购票成功，请访问未完成订单！";
-                        static::sdtout($subject);
-                        static::sdtout($body);
+                        sdt_output($subject);
+                        sdt_output($body);
                         $ticketNotify = \Yii::$app->params['TicketNotify'];
                         //发送邮件
                         if(isset($ticketNotify['Email']['is_open']) && $ticketNotify['Email']['is_open'] == 'YES'){
@@ -568,25 +568,25 @@ class Ticket extends Model
                         return true;
                     }elseif (isset($result['waitTime']) && intval($result['waitTime']) >= 0){
                         sleep(1);
-                        static::sdtout("排队等待中，预计还需要 {$result['waitTime']} 秒");
+                        sdt_output("排队等待中，预计还需要 {$result['waitTime']} 秒");
                     }elseif(isset($result['msg'])){
-                        static::sdtout("排队失败，错误原因: {$result['msg']}");
+                        sdt_output("排队失败，错误原因: {$result['msg']}");
                         return false;
                     }
                     goto queryOrder;
                 }elseif ($queryOrderRes['messages'] || $queryOrderRes['validateMessages']){
-                    static::sdtout("排队失败，错误原因: {$queryOrderRes['messages'][0]}");
+                    sdt_output("排队失败，错误原因: {$queryOrderRes['messages'][0]}");
                     return false;
                 }else {
-                    static::sdtout("第{$current_queue_wait}次排队，请耐心等待");
+                    sdt_output("第{$current_queue_wait}次排队，请耐心等待");
                     goto queryOrder;
                 }
             } else {
-                static::sdtout($checkOrderInfoDataJson['data']['errMsg']);
+                sdt_output($checkOrderInfoDataJson['data']['errMsg']);
                 return false;
             }
         }else{
-            static::sdtout(strip_tags($submitOrderJson['messages'][0]));
+            sdt_output(strip_tags($submitOrderJson['messages'][0]));
             return false;
         }
     }
@@ -621,8 +621,8 @@ class Ticket extends Model
             'rows' => $trainResult,
         ]);
         $date = \Yii::$app->params['TicketQuery']['train_date'];
-        Ticket::sdtout("*************** 购票日期（{$date}） ***************");
-        static::sdtout($ticketTable);
+        sdt_output("*************** 购票日期（{$date}） ***************");
+        sdt_output($ticketTable);
     }
 
     /**
@@ -641,23 +641,4 @@ class Ticket extends Model
             $cache->set($name,$cookieArray);
         }
     }
-
-    /**
-     * 标准输入
-     * @param $message
-     */
-    public static function sdtin($message){
-        //$message = Console::isRunningOnWindows() ? iconv('UTF-8','GB2312//IGNORE',$message) : $message;
-        Console::input($message);
-    }
-
-    /**
-     * 标准输出
-     * @param $message
-     */
-    public static function sdtout($message){
-        //$message = Console::isRunningOnWindows() ? iconv('UTF-8','GB2312//IGNORE',$message) : $message;
-        Console::output($message);
-    }
-
 }
