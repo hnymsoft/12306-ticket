@@ -2,3 +2,5 @@
 /statics/
 /code.jpeg
 /runtime/
+/config/console.php
+/config/ticket_cfg.php
