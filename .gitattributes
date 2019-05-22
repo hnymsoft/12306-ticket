@@ -1,3 +1,1 @@
-*.h linguist-language=php
-*.c linguist-language=php
-*.j linguist-language=php
+* linguist-language=php
